@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# 🛒 NavegaLasRutas - Martínez
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este proyecto fue realizado como parte del curso de React de la Carrera Fullstack. Consiste en una tienda online simulada que implementa navegación entre distintas vistas utilizando **React Router DOM**.
 
-## Available Scripts
+## 🎯 Objetivo
 
-In the project directory, you can run:
+Implementar un sistema de rutas para navegar entre:
 
-### `npm start`
+- Catálogo principal de productos
+- Productos filtrados por categoría
+- Vista en detalle de un producto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Además, se prepara la interfaz para agregar unidades al carrito de compras.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Funcionalidades
 
-### `npm test`
+✅ Navegación con enlaces usando `<Link>` de React Router  
+✅ Uso de rutas dinámicas con `useParams()`  
+✅ Listado de productos con `map()` y `key`  
+✅ Filtro de productos por categoría  
+✅ Detalle individual de productos con su propio ID  
+✅ Uso de `useEffect()` para reaccionar a cambios de URL  
+✅ Promesas simuladas con retardo para obtener productos  
+✅ Ruta 404 para manejar errores de navegación
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧩 Componentes principales
 
-### `npm run build`
+### 🔹 Contenedores (manejan estado y efectos)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **ItemListContainer**: obtiene productos o productos por categoría
+- **ItemDetailContainer**: obtiene un producto por ID
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🔹 Presentacionales
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **ItemList**: muestra una lista de productos
+- **Item**: vista individual de cada producto
+- **ItemDetail**: vista detallada de un producto
+- **ItemCount**: permite seleccionar unidades
 
-### `npm run eject`
+## 🧭 Rutas implementadas
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `/` → Catálogo principal
+- `/category/:categoryId` → Productos filtrados por categoría
+- `/item/:itemId` → Detalle de producto
+- `*` → Página 404
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🗂️ Estructura del proyecto
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+src/
+├── components/
+│ ├── NavBar/
+│ ├── ItemListContainer/
+│ ├── ItemDetailContainer/
+│ ├── ItemList/
+│ ├── Item/
+│ ├── ItemDetail/
+│ └── ItemCount/
+├── data/
+│ └── products.js
+├── App.js
+└── main.jsx
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## 🛠️ Tecnologías usadas
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- React
+- React Router DOM
+- JavaScript
+- Promesas simuladas
+- HTML/CSS
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
