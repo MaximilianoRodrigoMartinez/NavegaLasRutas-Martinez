@@ -1,14 +1,111 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import CartWidget from './CartWidget';
+import { getCategories } from '../data/products';
 
 const NavBar = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoriesData = await getCategories();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error('Error loading categories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
-    <nav style={{ display: 'flex', justifyContent: 'space-between', padding: '10px', background: '#eee' }}>
+    <nav style={{ 
+      display: 'flex', 
+      justifyContent: 'space-between', 
+      alignItems: 'center',
+      padding: '10px 20px', 
+      background: '#f8f9fa',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+    }}>
       <div>
-        <h2>Mi Tienda</h2>
+        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <h2 style={{ margin: 0, color: '#007bff' }}>Mi Tienda</h2>
+        </Link>
       </div>
-      <div>
-        <a href="#">Inicio</a> | <a href="#">Productos</a> | <a href="#">Contacto</a>
+      <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+        <Link 
+          to="/" 
+          style={{ 
+            textDecoration: 'none', 
+            color: '#333',
+            padding: '8px 12px',
+            borderRadius: '4px',
+            transition: 'background-color 0.3s'
+          }}
+          onMouseOver={(e) => e.target.style.backgroundColor = '#e9ecef'}
+          onMouseOut={(e) => e.target.style.backgroundColor = 'transparent'}
+        >
+          Inicio
+        </Link>
+        <div 
+          style={{ position: 'relative' }}
+          onMouseEnter={() => setIsDropdownOpen(true)}
+          onMouseLeave={() => setIsDropdownOpen(false)}
+        >
+          <span style={{ 
+            padding: '8px 12px',
+            cursor: 'pointer',
+            borderRadius: '4px',
+            transition: 'background-color 0.3s',
+            backgroundColor: isDropdownOpen ? '#e9ecef' : 'transparent'
+          }}>
+            Categorías
+          </span>
+          <div style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            background: 'white',
+            border: '1px solid #ddd',
+            borderRadius: '4px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            display: isDropdownOpen ? 'flex' : 'none',
+            flexDirection: 'column',
+            minWidth: '200px',
+            maxHeight: '300px',
+            overflowY: 'auto',
+            zIndex: 1000
+          }}>
+            {loading ? (
+              <div style={{ padding: '10px 15px', color: '#666' }}>
+                Cargando categorías...
+              </div>
+            ) : (
+              categories.map((category, index) => (
+                <Link 
+                  key={category.slug || index}
+                  to={`/category/${category.slug || category}`}
+                  style={{ 
+                    textDecoration: 'none', 
+                    color: '#333',
+                    padding: '10px 15px',
+                    borderBottom: index < categories.length - 1 ? '1px solid #eee' : 'none',
+                    transition: 'background-color 0.2s'
+                  }}
+                  onMouseOver={(e) => e.target.style.backgroundColor = '#f8f9fa'}
+                  onMouseOut={(e) => e.target.style.backgroundColor = 'transparent'}
+                >
+                  {category.name || category}
+                </Link>
+              ))
+            )}
+          </div>
+        </div>
       </div>
       <CartWidget />
     </nav>
